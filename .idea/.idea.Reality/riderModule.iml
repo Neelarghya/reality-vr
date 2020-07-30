@@ -3,6 +3,7 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$/../.." />
+    <content url="file://$USER_HOME$/Library/Unity/cache/packages/packages.unity.com/com.unity.xr.legacyinputhelpers@2.1.2" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

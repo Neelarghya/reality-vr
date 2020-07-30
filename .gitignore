@@ -143,3 +143,11 @@ InitTestScene*.unity
 
 
 # End of https://www.toptal.com/developers/gitignore/api/rider,unity
+
+# Samples
+/[Aa]ssets/[Ss]amples/
+/[Aa]ssets/[Ss]amples.meta
+
+# MacOS
+.DS_Store
+*.DS_Store
