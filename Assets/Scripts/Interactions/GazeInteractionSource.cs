@@ -34,14 +34,14 @@ namespace Interactions
                 {
                     if (_gazedObject)
                     {
-                        _gazedObject.GetComponent<IPointerExitHandler>()?.OnPointerExit(_eventData);
+                        _gazedObject.GetComponentInParent<IPointerExitHandler>()?.OnPointerExit(_eventData);
 
                         if (IsGazedObjectIntractable())
                             onLoseFocus?.Invoke();
                     }
 
                     _gazedObject = hit.transform.gameObject;
-                    _gazedObject.GetComponent<IPointerEnterHandler>()?.OnPointerEnter(_eventData);
+                    _gazedObject.GetComponentInParent<IPointerEnterHandler>()?.OnPointerEnter(_eventData);
 
                     if (IsGazedObjectIntractable())
                         onFocusIntractable?.Invoke();
@@ -49,14 +49,24 @@ namespace Interactions
             }
             else if (_gazedObject)
             {
-                _gazedObject.GetComponent<IPointerExitHandler>()?.OnPointerExit(_eventData);
+                _gazedObject.GetComponentInParent<IPointerExitHandler>()?.OnPointerExit(_eventData);
                 _gazedObject = null;
                 onLoseFocus?.Invoke();
             }
 
             if (_gazedObject != null && Api.IsTriggerPressed)
             {
-                _gazedObject.GetComponent<IPointerClickHandler>()?.OnPointerClick(_eventData);
+                var clickHandler = _gazedObject.GetComponentInParent<IPointerClickHandler>();
+
+                if (clickHandler != null)
+                {
+                    _eventData.pointerPressRaycast = new RaycastResult
+                    {
+                        worldPosition = hit.point
+                    };
+
+                    clickHandler.OnPointerClick(_eventData);
+                }
 
                 if (IsGazedObjectIntractable())
                     onClick?.Invoke();
@@ -65,7 +75,7 @@ namespace Interactions
 
         private bool IsGazedObjectIntractable()
         {
-            return _gazedObject.GetComponent<IEventSystemHandler>() != null;
+            return _gazedObject.GetComponentInParent<IEventSystemHandler>() != null;
         }
     }
 }
