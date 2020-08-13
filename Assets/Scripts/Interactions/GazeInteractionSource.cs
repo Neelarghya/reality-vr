@@ -54,7 +54,7 @@ namespace Interactions
                 onLoseFocus?.Invoke();
             }
 
-            if (_gazedObject != null && Api.IsTriggerPressed || Input.GetMouseButtonDown(0))
+            if (_gazedObject != null && (Api.IsTriggerPressed || Input.GetMouseButtonDown(0)))
             {
                 var clickHandler = _gazedObject.GetComponentInParent<IPointerClickHandler>();
 
