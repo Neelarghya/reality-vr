@@ -9,10 +9,13 @@ namespace Helpers
         {
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
+#if UNITY_ANDROID && !UNITY_EDITOR
             if (!Api.HasDeviceParams())
                 Api.ScanDeviceParams();
+#endif
         }
-
+        
+#if UNITY_ANDROID && !UNITY_EDITOR
         public void Update()
         {
             if (Api.IsGearButtonPressed)
@@ -24,5 +27,6 @@ namespace Helpers
             if (Api.HasNewDeviceParams())
                 Api.ReloadDeviceParams();
         }
+#endif
     }
 }
