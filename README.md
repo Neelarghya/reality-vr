@@ -15,4 +15,4 @@ Full Video: <https://www.youtube.com/watch?v=Oy57Gfm1GoY>
 
 
 ## License
-Open sourced... Knock yourself out! :P
+[Apache-2.0 License](LICENSE)
