@@ -34,14 +34,12 @@ namespace Tests
                 }
             };
 
-            yield return null;
-
             _arium.PerformAction(new UnityPointerClick(eventData), "Ground");
 
             yield return new WaitForSeconds(4);
 
-            float distance = Vector3.Distance(position, _arium.FindGameObject("Player").transform.position);
-            Debug.Log(distance);
+            float distance = Vector3.Distance(position, _arium.GetComponent<Transform>("Player").position);
+            
             Assert.IsTrue(distance < 0.02f);
         }
 
@@ -51,6 +49,7 @@ namespace Tests
             const string collectable = "Collectable";
             Transform player = _arium.GetComponent<Transform>("Player");
             Transform collectableTransform = _arium.GetComponent<Transform>(collectable);
+            
             Vector3 position = Vector3.Lerp(player.position, collectableTransform.position, 0.5f);
             PointerEventData eventData = new PointerEventData(EventSystem.current)
             {
@@ -62,7 +61,9 @@ namespace Tests
             yield return new WaitForSeconds(2);
 
             player.LookAt(collectableTransform);
+            
             yield return new WaitForSeconds(0.5f);
+            
             Assert.IsTrue(_arium.GetComponent<Animator>("Reticle").GetBool(IsOpen));
             _arium.PerformAction(new UnityPointerClick(), collectable);
 
